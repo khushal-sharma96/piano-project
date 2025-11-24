@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Khushal's Piano</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #313131;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-content: space-between;
+      min-height: 96vh;
+    }
+
+    header {
+      color: gold;
+      font-size: 20px;
+      font-family: cursive;
+      font-weight: 800;
+      padding: 10px;
+      background: #000;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    header img {
+      width: 20px;
+    }
+
+    #piano {
+      background: linear-gradient(rgb(114, 114, 114) -16%, black 30%);
+      width: 90%;
+      margin: auto;
+      height: 400px;
+      margin-top: 30px;
+      border-radius: 10px;
+      padding-top: 20px;
+    }
+
+    #upper-piano {
+      width: 85%;
+      margin: auto;
+      background-color: #1c1c1c;
+      height: 100px;
+      border-radius: 10px;
+      display: flex;
+      padding: 15px;
+      justify-content: space-between;
+    }
+
+    #upper-piano textarea {
+      width: 80%;
+      border-radius: 10px;
+      color: goldenrod;
+      background-color: #4c4c4c;
+      padding: 5px;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    #upper-piano div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 40px;
+      justify-content: space-between;
+    }
+
+    #upper-piano button {
+      width: 30px;
+      height: 30px;
+      background-color: red;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    #upper-piano button:active {
+      scale: 0.7;
+    }
+
+    #upper-piano i:active {
+      scale: 0.7;
+    }
+
+    #piano-keys {
+      width: 95%;
+      background: #dadada;
+      height: 200px;
+      margin: auto;
+      margin-top: 5%;
+      overflow-y: hidden;
+      display: flex;
+      position: relative;
+    }
+
+    .key {
+      width: 55px;
+      border-radius: 10px;
+      transform: translate(0px, -8px);
+      position: absolute;
+      color: white;
+      font-size: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: 600;
+    }
+
+    .key:active,.active {
+      scale: 0.9;
+      top: -10px; 
+    }
+
+    .wt-key {
+      height: 104%;
+      background: #818181;
+      color: rgb(245, 245, 245);
+      align-items: flex-end;
+      padding-bottom: 10px;
+    }
+
+    .bk-key {
+      height: 64%;
+      width: 40px;
+      background: #1a1a1a;
+      transform: translate(-50%, -8px);
+      z-index: 2;
+
+    }
+
+    .recording-start {
+      animation: pulse 1.3s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
+      }
+
+      100% {
+        box-shadow: 0 0 0 10px rgba(255, 0, 0, 0);
+      }
+    }
+
+    .disable {
+      pointer-events: none;
+      color: #999999;
+    }
+
+    footer {
+      color: goldenrod;
+      text-align: center;
+    }
+  </style>
+  <script defer src="index.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.css"
+    integrity="sha512-kJlvECunwXftkPwyvHbclArO8wszgBGisiLeuDFwNM8ws+wKIw0sv1os3ClWZOcrEB2eRXULYUsm8OVRGJKwGA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+  <header>
+    Khushal's Piano
+    <img
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAhFBMVEX///8AAACCrsB1dXV8qr2lxNBubm5XV1fCwsLs7Ox7qr3i4uLQ3+aGscLn7/PM3eU5OTnOzs5pjZxzmqq/1N1QUFB7e3tcXFy80tydv83v9fesrKwcHByyzNeRt8dnZ2eSrbkuLi4MDAyotbra2tpiiZne6e1ERET09PSOjo66urrGxsb7N0tUAAAD0ElEQVR4nO3cbVvaMBSAYVZKwSAgGwWKUsV35///f4O2KKYnaTIZM/V5vqk7JndaLss+0OkQERG5dp20rWtNmHTbVoIw+BCGH8LwQxh+30+Y9ttWqgl/tC+E4Ycw/BCGH8LwQxh+CMMPYfghDD+E4Ycw/BCGH8LwQxh+CMPv2wl/Fd0MG7q0/s4zaWRqHZlKI2fWkcumTd6UGE2ool29TkOvPqdWZt/umThjHXlt2mSvsCjtu/Hum3GjcPAFhINGYYlBiBAhQoQIESJEiBAhQoQIESJEiBAhQoQIESJEiBAhQoQIESJEiBAhQoQIESJEiBAhQoQIESJEiBAhQoQIESJEiBAhQoQITytM9c8/v940CZ/0D31PnpqEm2t9mfRUwnRe/4z3K7vwoj4yv7ALr+qLzNMTCYXP4C+3axYuhA++79uFwqF0k7CEC4QIESJEiBAhQoQIEdqEff93T0/HeffUP5HwdjHXSord2t4Bp11tpHo7a3kHfJHoyyxuTyQ0dWURmno2C039W6F1u115xjZyK48k/odyLGHnxbJb+Y7r/Pa/HkPLyEvjHj8n7Bg/33MxNI28bgwjm6lpZJialrls3uInhds7dVp09/CzqPzq3jryfF/8o0E58jAoR6y3WzUyLRd5uCu/MtwmH/u0sOpcjbZFI4+RcTEyUmOPme0Ku5Fzj5HjCXcjnsJixFNYjCA8DKFrCIUQSiEUQugaQiGEUgiFELqGUAihFEIhhK4hFEIohVAIoWsIhRBKIRRC6BpCIYRSCIUQuoZQCKEUQiGEriEUQiiFUAihawiFEEohFELoWpjCzOP3TOJybY+RvxGWI/HEYyQzC70uyLoSrtxHqsvuc0FWlXDtsbPysstCn+3mkffplreP14uhulOi3H1kfyjat2Pfo3osf4/P2qton/tBVucYqUfnkermkoVR7PwS2S8dKeeLWC3tc5CT/Tm6H2T1YjcJnX/R2263OZ7K+ftI7PhKHL8volxPZX/0JmGcO91BaxUd5HQHTQ7OxPHV+3i4iBtxlb9JtJ+8LR+rWfPK+QfgdvHGYxln2kjWeOVXa20kbz7J2fuIUbj9UdxbTszN1qOPKxfHki1ntpFcxbWRfG0bWWa1kUiNbCOTZS8+ZJiFO6M1feFyRPmOWJdRpmWcd6YLa5cl+PSHrf+9n+OnP59l8o0UbrVn7FnbbtPan4RV64S1P2C9dt2mwtP9uGVC4YGiVa9E+cFs2R6iWkrA7VU0PHuEVhwbH63HPVV/GAysWKme7aF+NctG1gfML54aZTOP/4khIiIq+wPvXu+C4moCpwAAAABJRU5ErkJggg=="
+      alt="" />
+  </header>
+  <main>
+    <div id="piano">
+      <div id="upper-piano">
+        <textarea name="" id="pressed-keys"></textarea>
+        <div>
+          <button id="recording-btn"></button>
+          <i class="ri-play-fill" id="play-btn"></i>
+        </div>
+      </div>
+      <div id="piano-keys">
+      </div>
+  </main>
+  <footer>
+    <p>Developed with by <i class="ri-heart-3-fill"></i> <i>Dev. Khushal Sharma</i></p>
+  </footer>
+</body>
+
+</html>
